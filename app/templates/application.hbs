@@ -1,5 +1,25 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}
+<section id="todoapp">
+    <header id="header">
+      <input type="text" id="new-todo" onkeydown={{action 'createTodo'}} placeholder="What needs to be done?" autofocus>
+    </header>
+      {{outlet}}
+      {{#if model.length}}
+        {{todo-list todos=model}}
+        {{/if}}
+      {{#if (gt model.length 0)}}
+        <footer id="footer">
+          <span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
+          <!-- <ul id="filters">
+            <li><a onclick={{action 'filterTodo' 'all'}}>All</a></li>
+            <li><a onclick={{action 'filterTodo' 'active'}}>Active</a></li>
+            <li><a onclick={{action 'filterTodo' 'completed'}}>Completed</a></li>
+          </ul> -->
+          {{#if completed.length}}
+            <button id="clear-completed" onclick={{action 'clearCompleted'}}>Clear completed</button>
+          {{/if}}
+        </footer>
+      {{/if}}
+  </section>
+  <footer id="info">
+    <p>Double-click to edit a todo</p>
+  </footer>

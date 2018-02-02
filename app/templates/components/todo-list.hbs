@@ -1,10 +1,24 @@
-{{#if todos.length}}
+{{#if selectedTodos.length}}
   {{#if canToggle}}
     <input type="checkbox" id="toggle-all" checked={{allCompleted}} onchange={{action 'toggleAll'}}>
   {{/if}}
   <ul id="todo-list" class="todo-list">
-    {{#each todos as |todo|}}
+    {{#each selectedTodos as |todo|}}
       {{todo-item todo=todo onStartEdit=(action 'disableToggle') onEndEdit=(action 'enableToggle')}}
     {{/each}}
   </ul>
+{{/if}}
+
+{{#if (gt todos.length 0)}}
+  <footer id="footer">
+    <span id="todo-count"><strong>{{remaining.length}}</strong> {{pluralize 'item' remaining.length}} left</span>
+    <ul id="filters">
+      <li><a onclick={{action 'filterTodo' 'all'}}>All</a></li>
+      <li><a onclick={{action 'filterTodo' 'active'}}>Active</a></li>
+      <li><a onclick={{action 'filterTodo' 'completed'}}>Completed</a></li>
+    </ul>
+    {{#if completed.length}}
+      <button id="clear-completed" onclick={{action 'clearCompleted'}}>Clear completed</button>
+    {{/if}}
+  </footer>
 {{/if}}
